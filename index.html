@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Markdown Previewer</title>
+    <script src="./js/marked.js"></script>
+    <script>
+      // Compile -->
+      // console.log(marked.parse(markdownString));
+      console.log(marked.parse("# Test Useful Programmer"));
+      
+      function updatePreview() {
+        let previewElement = document.getElementById("preview")
+        let editorValue = document.getElementById("editor").value
+        let markedUpHTML = marked.parse(editorValue)
+        previewElement.innerHTML = markedUpHTML
+      }
+      
+
+      function setDefault() {
+        let defaultText = `\
+# Freecodecamp Markdown Previewer
+## A Markdown Previewer
+[Learn more about programming](https://www.freecodecamp.com)
+
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
+
+\`Thank you for watching.\`
+- Code
+- All 
+- Day
+
+>Learn to be a programmer
+*Italic Text*
+**Bold Text**
+
+\`\`\`
+function exampleOf() {
+  return multilineCodeBlock
+}
+\`\`\`
+
+![Image Example](data:image/jpeg;base64,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)
+        `
+        let editorField = document.getElementById("editor")
+        let previewElement = document.getElementById("preview")
+        editorField.value = defaultText
+        previewElement.innerHTML = marked.parse(defaultText)
+      }
+
+    </script>
+
+
+
+  </head>
+  <body onload="setDefault()">
+      <div class="container-fluid">
+          <div class="row">
+                <div class="col text-center text-white bg-black">
+                    <h1>Markdown Previewer</h1>
+                </div>  
+          </div>
+          <div class="row">
+            <div class="col-6  text-white bg-secondary d-flex flex-column">
+              <h2 class="text-center my-3">Editor</h2>
+              <div class="form-group"></div>
+                <textarea id="editor" class="form-control flex-grow-1" onkeyup="updatePreview()"></textarea>
+            </div>  
+            <div class="col-6 text-white bg-secondary">
+              <h2 class="text-center my-3">Previewer</h2>
+              <div id="preview" class="p-2 border border-white flex-grow-1" ></div>
+            </div>  
+          </div>
+          </div>
+      </div>
+
+    <!-- bootstrap bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+    <!-- jquery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src=https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js></script>
+    
+  </body>
+</html>
